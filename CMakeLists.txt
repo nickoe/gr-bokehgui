@@ -21,7 +21,7 @@
 ########################################################################
 # Project setup
 ########################################################################
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.14)
 project(gr-bokehgui CXX C)
 enable_testing()
 
@@ -43,8 +43,8 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake/Modules)
 
 # Set the version information here
 set(VERSION_MAJOR 1)
-set(VERSION_API    0)
-set(VERSION_ABI 0)
+set(VERSION_API   0)
+set(VERSION_ABI   0)
 set(VERSION_PATCH git)
 
 cmake_policy(SET CMP0011 NEW)
@@ -61,7 +61,6 @@ if((CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR
     #http://gcc.gnu.org/wiki/Visibility
     add_definitions(-fvisibility=hidden)
 endif()
-
 
 IF(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     SET(CMAKE_CXX_STANDARD 11)
@@ -98,6 +97,8 @@ include(GrVersion)
 
 include(GrPlatform) #define LIB_SUFFIX
 
+
+
 if(NOT CMAKE_MODULES_DIR)
   set(CMAKE_MODULES_DIR lib${LIB_SUFFIX}/cmake)
 endif(NOT CMAKE_MODULES_DIR)
@@ -133,10 +134,6 @@ endif(APPLE)
 # Find gnuradio build dependencies
 ########################################################################
 find_package(Doxygen)
-#find_package(PythonLibs 3)
-#find_package(Volk)
-#find_package(SWIG)
-
 
 ########################################################################
 # Check if boheh module exists
@@ -157,30 +154,6 @@ else(DOXYGEN_FOUND)
     option(ENABLE_DOXYGEN "Build docs using Doxygen" OFF)
 endif(DOXYGEN_FOUND)
 
-########################################################################
-# Setup the include and linker paths
-########################################################################
-#include_directories(
-#    ${CMAKE_SOURCE_DIR}/lib
-#    ${CMAKE_SOURCE_DIR}/include
-#    ${CMAKE_BINARY_DIR}/lib
-#    ${CMAKE_BINARY_DIR}/include
-#    ${Boost_INCLUDE_DIRS}
-#    ${CPPUNIT_INCLUDE_DIRS}
-#    ${GNURADIO_ALL_INCLUDE_DIRS}
-#    ${VOLK_INCLUDE_DIRS}
-#)
-
-#link_directories(
-#    ${Boost_LIBRARY_DIRS}
-#    ${CPPUNIT_LIBRARY_DIRS}
-#    ${GNURADIO_RUNTIME_LIBRARY_DIRS}
-#    ${VOLK_LIBRARY_DIRS}
-#)
-
-# Set component parameters
-#set(GR_BOKEHGUI_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "" FORCE)
-#set(GR_BOKEHGUI_SWIG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/swig CACHE INTERNAL "" FORCE)
 
 ########################################################################
 # Create uninstall target
@@ -209,9 +182,6 @@ add_subdirectory(grc)
 ########################################################################
 # Install cmake search helper for this library
 ########################################################################
-#if(NOT CMAKE_MODULES_DIR)
-#  set(CMAKE_MODULES_DIR lib${LIB_SUFFIX}/cmake)
-#endif(NOT CMAKE_MODULES_DIR)
 
 install(FILES cmake/Modules/bokehguiConfig.cmake
     DESTINATION ${CMAKE_MODULES_DIR}/bokehgui
