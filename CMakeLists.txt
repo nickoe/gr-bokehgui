@@ -134,6 +134,7 @@ endif(APPLE)
 # Find gnuradio build dependencies
 ########################################################################
 find_package(Doxygen)
+find_package(Python3 COMPONENTS Interpreter Development NumPy)
 
 ########################################################################
 # Check if boheh module exists
@@ -154,6 +155,11 @@ else(DOXYGEN_FOUND)
     option(ENABLE_DOXYGEN "Build docs using Doxygen" OFF)
 endif(DOXYGEN_FOUND)
 
+
+
+include_directories(
+  ${Python3_NumPy_INCLUDE_DIRS}
+  )
 
 ########################################################################
 # Create uninstall target
